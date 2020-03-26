@@ -93,7 +93,9 @@ gulp.task('js:babel', () =>
     gulp.src(path.join(src, '**/*.js'))
         .pipe(plugins.plumber())
         .pipe(babel({
-            presets: ['@babel/preset-env']
+            presets: [['@babel/preset-env', {
+                "modules": false // 避免开启strict mode导致业务代码中this为undefined，当前项目也不会用到es6 module
+            }]]
         }))
         .pipe(gulp.dest(dest))
 );
